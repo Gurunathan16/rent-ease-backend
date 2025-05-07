@@ -17,7 +17,8 @@ public class ValidPropertyFloorValidator implements ConstraintValidator<ValidPro
     @Override
     public boolean isValid(Object obj,
                            ConstraintValidatorContext constraintValidatorContext) {
-        try {
+        try
+        {
             if(obj == null)
                 return false;
 
@@ -30,7 +31,9 @@ public class ValidPropertyFloorValidator implements ConstraintValidator<ValidPro
 
             return propertyFloor <= totalFloors;
 
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+        }
+        catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e)
+        {
             throw new RuntimeException(e);
         }
     }

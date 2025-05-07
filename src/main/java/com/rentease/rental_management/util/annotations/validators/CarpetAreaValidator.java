@@ -27,7 +27,9 @@ public class CarpetAreaValidator implements ConstraintValidator<ValidCarpetArea,
             carpetArea = (Integer) getCarpetArea.invoke(obj);
 
             return carpetArea <= buildUpArea;
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+        }
+        catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e)
+        {
             throw new RuntimeException(e);
         }
     }
