@@ -53,8 +53,7 @@ public class SecurityConfig
                                 "/auth/verifyEmailOTP", "/auth/verifyPhoneOTP", "/auth/refreshToken",
                                 "/app/properties", "/app/localitySearch/{locality}", "/app/filter", "/app/view",
                                 "/app/likeCount").permitAll()
-                        .anyRequest().permitAll())
-
+                        .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session
