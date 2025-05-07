@@ -130,13 +130,65 @@ public class UsersServiceImpl implements UsersService
 
         sendEmailOTP(email, otp);
 
-        return ResponseEntityHandler.getResponseEntity(HttpStatus.OK, "OTP sent to email successfully.", "Action", "Verify the OTP");
-
         /*if(phoneNumber == null)
             sendEmailOTP(email, otp);
         else
             sendPhoneOTP(phoneNumber, otp);*/
+
+        return ResponseEntityHandler.getResponseEntity(HttpStatus.OK, "OTP sent to email successfully.", "Action", "Verify the OTP");
+
     }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> verifyEmailOTP(VerifyEmailOTPRequest verifyEmailOTPRequest)
+    {
+        String savedOTP = redisService.getEmailOTP(verifyEmailOTPRequest.email());
+
+        if(savedOTP == null || !savedOTP.equals(verifyEmailOTPRequest.otp()))
+            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "Invalid or Expired OTP",
+                    "Recovery", "Try hitting /auth/sendOTP");
+
+        Users users = usersRepository.findByEmail(verifyEmailOTPRequest.email());
+
+        if(users == null)
+            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "User account not exists.", "Recovery", "Try hitting /auth/signup to register yourself.");
+
+        users.setIsEmailVerified(true);
+
+        if(users.getIsPhoneNumberVerified())
+            users.setIsAccountLocked(false);
+
+        usersRepository.save(users);
+
+        return ResponseEntityHandler.getResponseEntity(HttpStatus.OK, "Email verified successfully.",
+                "Details", users.getFirstName());
+    }
+
+    /*
+    @Override
+    public ResponseEntity<Map<String, Object>> verifyPhoneOTP(VerifyPhoneOTPRequest verifyPhoneOTPRequest)
+    {
+        String savedOTP = redisService.getPhoneNumberOTP(verifyPhoneOTPRequest.phoneNumber());
+
+        if(savedOTP == null || !savedOTP.equals(verifyPhoneOTPRequest.otp()))
+            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "Invalid or Expired OTP",
+                    "Recovery", "Try hitting /auth/sendOTP");
+
+        Users users = usersRepository.findByPhoneNumber(verifyPhoneOTPRequest.phoneNumber());
+
+        if(users == null)
+            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "User account not exists.", "Recovery", "Try hitting /auth/signup to register yourself.");
+
+        users.setIsPhoneNumberVerified(true);
+
+        if(users.getIsEmailVerified())
+            users.setIsAccountLocked(false);
+
+        usersRepository.save(users);
+
+        return ResponseEntityHandler.getResponseEntity(HttpStatus.OK, "Phone Number verified successfully.",
+                "Details", users.getFirstName());
+    }*/
 
     @Override
     public ResponseEntity<Map<String, Object>> update(UsersUpdate usersUpdate)
@@ -218,57 +270,6 @@ public class UsersServiceImpl implements UsersService
     }
 
     @Override
-    public ResponseEntity<Map<String, Object>> verifyEmailOTP(VerifyEmailOTPRequest verifyEmailOTPRequest)
-    {
-        String savedOTP = redisService.getEmailOTP(verifyEmailOTPRequest.email());
-
-        if(savedOTP == null || !savedOTP.equals(verifyEmailOTPRequest.otp()))
-            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "Invalid or Expired OTP",
-                    "Recovery", "Try hitting /auth/sendOTP");
-
-        Users users = usersRepository.findByEmail(verifyEmailOTPRequest.email());
-
-        if(users == null)
-            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "User account not exists.", "Recovery", "Try hitting /auth/signup to register yourself.");
-
-        users.setIsEmailVerified(true);
-
-        if(users.getIsPhoneNumberVerified())
-            users.setIsAccountLocked(false);
-
-        usersRepository.save(users);
-
-        return ResponseEntityHandler.getResponseEntity(HttpStatus.OK, "Email verified successfully.",
-            "Details", users.getFirstName());
-    }
-
-    /*
-    @Override
-    public ResponseEntity<Map<String, Object>> verifyPhoneOTP(VerifyPhoneOTPRequest verifyPhoneOTPRequest)
-    {
-        String savedOTP = redisService.getPhoneNumberOTP(verifyPhoneOTPRequest.phoneNumber());
-
-        if(savedOTP == null || !savedOTP.equals(verifyPhoneOTPRequest.otp()))
-            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "Invalid or Expired OTP",
-                    "Recovery", "Try hitting /auth/sendOTP");
-
-        Users users = usersRepository.findByPhoneNumber(verifyPhoneOTPRequest.phoneNumber());
-
-        if(users == null)
-            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "User account not exists.", "Recovery", "Try hitting /auth/signup to register yourself.");
-
-        users.setIsPhoneNumberVerified(true);
-
-        if(users.getIsEmailVerified())
-            users.setIsAccountLocked(false);
-
-        usersRepository.save(users);
-
-        return ResponseEntityHandler.getResponseEntity(HttpStatus.OK, "Phone Number verified successfully.",
-                "Details", users.getFirstName());
-    }*/
-
-    @Override
     public ResponseEntity<Map<String, Object>> responseCookieGenerator(List<String> generatedTokens)
     {
         Map<String, Object> response = new LinkedHashMap<>();
@@ -318,9 +319,10 @@ public class UsersServiceImpl implements UsersService
         }
     }*/
 
-    private void sendEmailOTP(String toEmail, String otp) {
-
-        try{
+    private void sendEmailOTP(String toEmail, String otp)
+    {
+        try
+        {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
@@ -333,8 +335,10 @@ public class UsersServiceImpl implements UsersService
             helper.setText(content, true);
             javaMailSender.send(message);
 
+            redisService.saveEmailOTP(toEmail, otp);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Failed to send email otp ", e);
         }
     }

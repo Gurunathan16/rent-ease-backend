@@ -50,7 +50,7 @@ public class SecurityConfig
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/auth/login", "/auth/signup", "/auth/changePassword", "/auth/sendOTP",
-                                "/auth/verifyEmailOTP", "/auth/verifyPhoneOTP", "/auth/refreshToken",
+                                "/auth/verifyEmailOTP", "/auth/refreshToken",
                                 "/app/properties", "/app/localitySearch/{locality}", "/app/filter", "/app/view",
                                 "/app/likeCount").permitAll()
                         .anyRequest().authenticated())
