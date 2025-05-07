@@ -274,6 +274,7 @@ public class UsersServiceImpl implements UsersService
     {
         Map<String, Object> response = new LinkedHashMap<>();
 
+        response.put("code", HttpStatus.OK.value());
         response.put("status", "Success");
         response.put("message", "Tokens generated");
         response.put("payload", jwtService.getClaims(generatedTokens.get(0)));
