@@ -16,6 +16,10 @@ public class CarpetAreaValidator implements ConstraintValidator<ValidCarpetArea,
     public boolean isValid(Object obj, ConstraintValidatorContext constraintValidatorContext)
     {
         try {
+
+            if(obj == null)
+                return false;
+
             Method getBuildUpArea = obj.getClass().getMethod("getBuildUpArea");
             Method getCarpetArea = obj.getClass().getMethod("getCarpetArea");
 

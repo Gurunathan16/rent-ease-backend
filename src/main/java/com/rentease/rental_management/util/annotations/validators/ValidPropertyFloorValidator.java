@@ -18,14 +18,15 @@ public class ValidPropertyFloorValidator implements ConstraintValidator<ValidPro
     public boolean isValid(Object obj,
                            ConstraintValidatorContext constraintValidatorContext) {
         try {
+            if(obj == null)
+                return false;
+
             Method getPropertyFloor = obj.getClass().getMethod("getPropertyFloor");
             Method getTotalFloor = obj.getClass().getMethod("getTotalFloor");
 
             propertyFloor = (Integer) getPropertyFloor.invoke(obj);
             totalFloors = (Integer) getTotalFloor.invoke(obj);
 
-        /*this.propertyFloor = propertyRegistration.getPropertyFloor();
-        this.totalFloors = propertyRegistration.getTotalFloor();*/
 
             return propertyFloor <= totalFloors;
 
