@@ -1,0 +1,25 @@
+package com.rentease.rental_management.auth.dto;
+
+import com.rentease.rental_management.util.annotations.MinAge;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+
+import java.time.LocalDate;
+
+public record UsersUpdate(
+
+        @NotBlank(message = "First Name cannot be null or blank")
+        String firstName,
+
+        String lastName,
+
+        @NotBlank(message = "Gender cannot be null or blank")
+        String gender,
+
+        @Past
+        @MinAge(18)
+        @NotNull(message = "Date of Birth cannot be null")
+        LocalDate dateOfBirth
+
+) { }
