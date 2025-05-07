@@ -1,0 +1,43 @@
+# --- Application Configuration ---
+spring.application.name = rental-management
+
+# --- Database Configuration ---
+spring.data.jdbc.dialect = org.hibernate.dialect.MySQL8Dialect
+spring.datasource.url = jdbc:mysql://localhost:3306/rental?createDatabaseIfNotExist = true
+spring.datasource.driver-class-name = com.mysql.cj.jdbc.Driver
+spring.datasource.username = ${MYSQL_DB_UNAME}   # Set in your system env
+spring.datasource.password = ${MYSQL_DB_PWD}     # Set in your system env
+
+spring.jpa.defer-datasource-initialization = true
+spring.sql.init.mode = always
+
+# --- HikariCP Connection Pooling ---
+spring.datasource.hikari.idle-timeout = 30000
+spring.datasource.hikari.connection-timeout = 20000
+spring.datasource.hikari.max-lifetime = 180000
+spring.datasource.hikari.maximum-pool-size = 10
+spring.datasource.hikari.minimum-idle = 5
+
+# --- JPA Settings ---
+spring.jpa.show-sql = true
+spring.jpa.properties.hibernate.format_sql = true
+spring.jpa.hibernate.ddl-auto = update
+
+# --- Redis ---
+spring.redis.host = localhost
+spring.redis.port = 6379
+
+# --- Email (Gmail SMTP) ---
+spring.mail.host = smtp.gmail.com
+spring.mail.port = 587
+spring.mail.username = ${GMAIL_1}           # Set in your system env
+spring.mail.password = ${GMAIL_1_PWD}       # Set in your system env
+spring.mail.properties.mail.smtp.auth = true
+spring.mail.properties.mail.smtp.starttls.enable = true
+
+# --- Session Control ---
+session.maximumSessions = 2
+
+# --- Error Handling ---
+spring.mvc.throw-exception-if-no-handler-found = true
+spring.web.resources-add-mappings = false
