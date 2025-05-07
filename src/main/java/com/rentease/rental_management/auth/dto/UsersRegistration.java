@@ -18,9 +18,9 @@ public class UsersRegistration
 
     private String lastName;
 
+    @NotNull(message = "Date of Birth cannot be null.")
     @Past
     @MinAge(18)
-    @NotNull(message = "Date of Birth cannot be null.")
     private LocalDate dateOfBirth;
 
     @NotBlank(message = "Gender cannot be null or blank.")

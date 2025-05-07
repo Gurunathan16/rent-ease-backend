@@ -17,9 +17,9 @@ public record UsersUpdate(
         @NotBlank(message = "Gender cannot be null or blank")
         String gender,
 
+        @NotNull(message = "Date of Birth cannot be null")
         @Past
         @MinAge(18)
-        @NotNull(message = "Date of Birth cannot be null")
         LocalDate dateOfBirth
 
 ) { }

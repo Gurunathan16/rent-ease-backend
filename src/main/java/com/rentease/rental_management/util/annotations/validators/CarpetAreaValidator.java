@@ -15,8 +15,8 @@ public class CarpetAreaValidator implements ConstraintValidator<ValidCarpetArea,
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext constraintValidatorContext)
     {
-        try {
-
+        try
+        {
             if(obj == null)
                 return false;
 
