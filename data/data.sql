@@ -1,0 +1,16 @@
+INSERT INTO amenity (name) VALUES ('Lift');
+INSERT INTO amenity (name) VALUES ('Internet Services');
+INSERT INTO amenity (name) VALUES ('Air Conditioner');
+INSERT INTO amenity (name) VALUES ('Club House');
+INSERT INTO amenity (name) VALUES ('Intercom');
+INSERT INTO amenity (name) VALUES ('Children Play Area');
+INSERT INTO amenity (name) VALUES ('Fire Safety');
+INSERT INTO amenity (name) VALUES ('Servant Room');
+INSERT INTO amenity (name) VALUES ('Shopping Center');
+INSERT INTO amenity (name) VALUES ('Gas Pipeline');
+INSERT INTO amenity (name) VALUES ('Park');
+INSERT INTO amenity (name) VALUES ('Rain Water Harvesting');
+INSERT INTO amenity (name) VALUES ('Sewage Treatment Plant');
+INSERT INTO amenity (name) VALUES ('House Keeping');
+INSERT INTO amenity (name) VALUES ('Power Backup');
+INSERT INTO amenity (name) VALUES ('Visitor Parking');
