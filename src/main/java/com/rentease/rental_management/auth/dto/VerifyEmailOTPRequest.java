@@ -10,7 +10,7 @@ public record VerifyEmailOTPRequest(
         String email,
 
         @NotBlank(message = "OTP cannot be null or blank.")
-        @Pattern(regexp = "^\\d{6}$")
+        @Pattern(regexp = "^\\d{6}$", message = "OTP should be exactly 6 characters")
         String otp
 
 ) {
