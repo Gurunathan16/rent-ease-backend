@@ -241,10 +241,6 @@ public class UsersServiceImpl implements UsersService
 
         if(usersRepository.existsByUsername(username))
             usersRepository.deleteByUsername(username);
-        else
-            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST,
-                    "Profile not deleted.",
-                    "Recovery", "Try deleting the existing profile.");
 
         return ResponseEntityHandler.getResponseEntity(HttpStatus.OK,
                 "Profile Deleted SuccessFully.",
