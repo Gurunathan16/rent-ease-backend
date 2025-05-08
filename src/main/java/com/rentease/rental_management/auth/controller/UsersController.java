@@ -15,8 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
-public class UsersController 
-{
+public class UsersController {
     private final UsersServiceImpl usersService;
 
     public UsersController(UsersServiceImpl usersService)
@@ -82,7 +81,7 @@ public class UsersController
 
     @PostMapping("/sendOTP")
     public ResponseEntity<Map<String, Object>> sendOTP(@Valid @RequestBody OTPRequest OTPRequestObject,
-                                                         BindingResult bindingResult)
+                                                       BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
             return validationErrorBuilder(bindingResult);

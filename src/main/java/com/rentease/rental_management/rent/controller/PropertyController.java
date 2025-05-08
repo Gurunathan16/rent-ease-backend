@@ -19,8 +19,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/app")
-public class PropertyController
-{
+public class PropertyController {
     private final PropertyServiceImpl propertyService;
     private final PropertyLikeServiceImpl propertyLikeServiceImpl;
 
@@ -74,7 +73,7 @@ public class PropertyController
 
     @PostMapping("/delete")
     public ResponseEntity<Map<String, Object>> delete(@Valid @RequestBody PropertyInfo propertyInfo,
-                                              BindingResult bindingResult)
+                                                      BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
             return validationErrorBuilder(bindingResult);
@@ -129,7 +128,7 @@ public class PropertyController
 
     @PostMapping("/likeCount")
     public ResponseEntity<Map<String, Object>> likeCount(@Valid @RequestBody PropertyInfo propertyInfo,
-                                                     BindingResult bindingResult)
+                                                         BindingResult bindingResult)
     {
         if(bindingResult.hasFieldErrors())
             return validationErrorBuilder(bindingResult);
