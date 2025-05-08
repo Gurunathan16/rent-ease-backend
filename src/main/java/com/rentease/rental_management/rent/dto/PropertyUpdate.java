@@ -21,6 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class PropertyUpdate
 {
+    @NotNull(message = "Property Id cannot be null.")
     private Integer id;
 
     @NotBlank(message = "Title cannot be null or blank.")

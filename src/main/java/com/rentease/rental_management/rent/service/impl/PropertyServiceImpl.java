@@ -86,7 +86,7 @@ public class PropertyServiceImpl implements PropertyService {
 
         propertyRepository.save(property);
 
-        return ResponseEntityHandler.getResponseEntity(HttpStatus.CREATED, "Property created successfully.", "Details", property);
+        return ResponseEntityHandler.getResponseEntity(HttpStatus.CREATED, "Property created successfully.", "Details", property.getTitle());
     }
 
     @Override
@@ -132,7 +132,7 @@ public class PropertyServiceImpl implements PropertyService {
         propertyRepository.save(propertyUpdated);
 
         return ResponseEntityHandler.getResponseEntity(HttpStatus.OK, "Property updated successfully.", "Details",
-                property);
+                property.getTitle());
 
     }
 
