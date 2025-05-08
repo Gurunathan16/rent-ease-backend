@@ -920,10 +920,8 @@ Include the following properties as *query parameters*:
 - `sort` : No sorting applied
 
 #### Request URL
-```json
-{
-    GET /app/myProperties?page=0&size=6&sort=price.expectedPrice,desc&sort=bedrooms,asc
-}
+```http
+GET /app/myProperties?page=0&size=6&sort=price.expectedPrice,desc&sort=bedrooms,asc
 ```
 
 #### Response(200 OK)
@@ -1056,10 +1054,8 @@ Include the following properties as *query parameters*:
 - `sort` : No sorting applied
 
 #### Request URL
-```json
-{
-    GET /app/properties?page=0&size=6&sort=price.expectedPrice,desc&sort=bedrooms,asc
-}
+```http
+GET /app/properties?page=0&size=6&sort=price.expectedPrice,desc&sort=bedrooms,asc
 ```
 
 #### Response(200 OK)
@@ -1518,10 +1514,8 @@ Include the following properties as *query parameter*:
 - `locality` - String - Required 
 
 #### Request URL
-```json
-{
-    GET /app/localitySearch/Poonamallee High Road?page=0&size=6&sort=price.expectedPrice,asc&sort=bedrooms,asc
-}
+```http
+GET /app/localitySearch/Poonamallee High Road?page=0&size=6&sort=price.expectedPrice,asc&sort=bedrooms,asc
 ```
 
 #### Response(200 OK)
@@ -2000,10 +1994,8 @@ Include the following properties as *query parameter*:
 ```
 
 #### Request URL
-```json
-{
-    GET /app//filter?amenities=1&amenities=12&amenities=5&minArea=400&maxArea=800&page=0&size=12&sort=price.expectedPrice,asc
-}
+```http
+GET /app//filter?amenities=1&amenities=12&amenities=5&minArea=400&maxArea=800&page=0&size=12&sort=price.expectedPrice,asc
 ```
 
 #### Response(200 OK)
