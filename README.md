@@ -29,108 +29,7 @@ A Spring Boot-based backend for managing products, users, and warranties. Featur
 - ✅ Custom Validations (e.g., Age Validation, Floor checker, Area validator)
 - 🩷 Like / Unlike properties. Get count of likes for each property.
 - 📃 Paginated API responses
-
-## 📁 Project Structure
-
-```
-src
-└── main
-    └── java
-        └── com
-            └── rentease
-                └── rental_management
-                    ├── auth
-                    │   ├── config
-                    │   │   ├── GeneralConfig.java
-                    │   │   └── SecurityConfig.java
-                    │   ├── controller
-                    │   │   └── UsersController.java
-                    │   ├── dto
-                    │   │   ├── OTPRequest.java
-                    │   │   ├── TokenRequest.java
-                    │   │   ├── UserAsParty.java
-                    │   │   ├── UsersLogin.java
-                    │   │   ├── UsersPasswordChange.java
-                    │   │   ├── UsersProfile.java
-                    │   │   ├── UsersRegistration.java
-                    │   │   ├── UsersUpdate.java
-                    │   │   ├── VerifyEmailOTPRequest.java
-                    │   │   └── VerifyPhoneOTPRequest.java
-                    │   ├── entity
-                    │   │   ├── UserPrincipal.java
-                    │   │   └── Users.java
-                    │   ├── filter
-                    │   │   ├── JWTExceptionHandlerFilter.java
-                    │   │   └── JWTFilter.java
-                    │   ├── repository
-                    │   |   └── UsersRepository.java
-                    |   └── service
-                    │       ├── impl
-                    │       │   ├── JwtServiceImpl.java
-                    │       |   ├── UserDetailsServiceHelper.java
-                    │       |   ├── UsersServiceImpl.java
-                    │       ├── JwtService.java
-                    │       ├── RedisService.java
-                    │       └── UsersService.java
-                    │
-                    ├── rent
-                    │   ├── controller
-                    │   │   └── PropertyController.java
-                    │   ├── dto
-                    │   │   ├── AddressDTO.java
-                    │   │   ├── PriceDTO.java
-                    │   │   ├── PropertyFilterDTO.java
-                    │   │   ├── PropertyHashDTO.java
-                    │   │   ├── PropertyInfo.java
-                    │   │   ├── PropertyProjection.java
-                    │   │   ├── PropertyRegistration.java
-                    │   │   └── PropertyUpdate.java
-                    │   ├── entity
-                    │   │   ├── Address.java
-                    │   │   ├── Amenity.java
-                    │   │   ├── Likes.java
-                    │   │   ├── Price.java
-                    │   │   └── Property.java
-                    │   └── repository
-                    │       ├── AmenityRepository.java
-                    │       ├── LikesRepository.java
-                    │       └── PropertyRepository.java
-                    │
-                    ├── service
-                    │   ├── impl
-                    │   │   ├── PropertyLikeServiceImpl.java
-                    │   │   └── PropertyServiceImpl.java
-                    │   ├── PropertyLikeService.java
-                    │   └── PropertyService.java
-                    │
-                    ├── util
-                    │   ├── annotations
-                    │   │   ├── validators
-                    │   │   |   ├── CarpetAreaValidator.java
-                    │   │   |   ├── MinAgeValidator.java
-                    │   │   |   └── ValidPropertyFloorValidator.java
-                    │   │   ├── MinAge.java
-                    │   │   ├── ValidCarpetArea.java
-                    │   │   └── ValidPropertyFloor.java
-                    │   ├── exception
-                    │   │   ├── AuthenticationExceptionHandler.java
-                    │   │   ├── CustomAuthEntryPoint.java
-                    │   │   ├── GenericExceptionHandler.java
-                    │   │   └── TooManyRequestsException.java
-                    │   ├── hash
-                    │   │   └── PropertyHash.java
-                    │   ├── mail
-                    │   │   └── EmailNotifier.java
-                    │   ├── mappers
-                    │   │   ├── PropertyMappers.java
-                    │   │   └── UsersMapper.java
-                    │   └── response
-                    │       ├── CustomResponseCookieHandler.java
-                    │       └── ResponseEntityHandler.java
-                    │
-                    └── RentalManagementApplication.java
-```
-
+  
 ---
 
 # 📃 API DOCUMENTATION
@@ -168,6 +67,12 @@ Include the following properties:
     }
 }
 ```
+**Login Response**
+![Login Response](./screenshots/Logged%20in%20with%20Dummy%20User%20Credentials.png)
+
+**Tokens at Cookies after login**
+![Tokens at Cookies](./screenshots/Tokens%20at%20Cookies%20after%20login.png)
+
 #### Response(401 UNAUTHORIZED)
 **- Wrong credentials**
 ```json
@@ -178,6 +83,8 @@ Include the following properties:
     "Validation Error": "Invalid username or password"
 }
 ```
+**Wrong Credentials**
+![Wrong Credentials](./screenshots/Wrong%20Credentials.png)
 
 ### 2. **REGISTER** 
 
@@ -209,8 +116,10 @@ Include the following properties:
     "email": "john.doe@example.com",
     "phoneNumber": "+911234567890"
 }
-
 ```
+**User Registration**
+![User Registration](./screenshots/User%20Registration.png)
+
 #### Response(200 OK)
 **- Registered successfully**
 ```json
@@ -245,6 +154,16 @@ Include the following properties:
     "Recovery": "Try login with existing account."
 }
 ```
+
+**Username Conflict**
+![Username Conflict](./screenshots/Duplicate%20Username.png)
+
+**Email ID Conflict**
+![Email ID Conflict](./screenshots/Duplicate%20email%20ID.png)
+
+**Phone Number Conflict**
+![Phone Number Conflict](./screenshots/Duplicate%20phone%20number.png)
+
 #### Response(400 BAD REQUEST)
 **- Password - Confirm password mismatch**
 ```json
@@ -497,8 +416,120 @@ Include the following properties:
 }
 ```
 
+**User Registration Validation**
+![Validations at User Registration](./screenshots/User%20Validation%20Errors.png)
+
+**Custom Age Validation**
+![Age Validation](./screenshots/Validation%20of%20data.png)
+
+**Other Logical Validation**
+![Logical Validation](./screenshots/Custom%20Logical%20Validations.png)
 ---
 
 ## 🔗 Postman Collection
+
+
+---
+
+## 📁 Project Structure
+
+```
+src
+└── main
+    └── java
+        └── com
+            └── rentease
+                └── rental_management
+                    ├── auth
+                    │   ├── config
+                    │   │   ├── GeneralConfig.java
+                    │   │   └── SecurityConfig.java
+                    │   ├── controller
+                    │   │   └── UsersController.java
+                    │   ├── dto
+                    │   │   ├── OTPRequest.java
+                    │   │   ├── TokenRequest.java
+                    │   │   ├── UserAsParty.java
+                    │   │   ├── UsersLogin.java
+                    │   │   ├── UsersPasswordChange.java
+                    │   │   ├── UsersProfile.java
+                    │   │   ├── UsersRegistration.java
+                    │   │   ├── UsersUpdate.java
+                    │   │   ├── VerifyEmailOTPRequest.java
+                    │   │   └── VerifyPhoneOTPRequest.java
+                    │   ├── entity
+                    │   │   ├── UserPrincipal.java
+                    │   │   └── Users.java
+                    │   ├── filter
+                    │   │   ├── JWTExceptionHandlerFilter.java
+                    │   │   └── JWTFilter.java
+                    │   ├── repository
+                    │   |   └── UsersRepository.java
+                    |   └── service
+                    │       ├── impl
+                    │       │   ├── JwtServiceImpl.java
+                    │       |   ├── UserDetailsServiceHelper.java
+                    │       |   ├── UsersServiceImpl.java
+                    │       ├── JwtService.java
+                    │       ├── RedisService.java
+                    │       └── UsersService.java
+                    │
+                    ├── rent
+                    │   ├── controller
+                    │   │   └── PropertyController.java
+                    │   ├── dto
+                    │   │   ├── AddressDTO.java
+                    │   │   ├── PriceDTO.java
+                    │   │   ├── PropertyFilterDTO.java
+                    │   │   ├── PropertyHashDTO.java
+                    │   │   ├── PropertyInfo.java
+                    │   │   ├── PropertyProjection.java
+                    │   │   ├── PropertyRegistration.java
+                    │   │   └── PropertyUpdate.java
+                    │   ├── entity
+                    │   │   ├── Address.java
+                    │   │   ├── Amenity.java
+                    │   │   ├── Likes.java
+                    │   │   ├── Price.java
+                    │   │   └── Property.java
+                    │   └── repository
+                    │       ├── AmenityRepository.java
+                    │       ├── LikesRepository.java
+                    │       └── PropertyRepository.java
+                    │
+                    ├── service
+                    │   ├── impl
+                    │   │   ├── PropertyLikeServiceImpl.java
+                    │   │   └── PropertyServiceImpl.java
+                    │   ├── PropertyLikeService.java
+                    │   └── PropertyService.java
+                    │
+                    ├── util
+                    │   ├── annotations
+                    │   │   ├── validators
+                    │   │   |   ├── CarpetAreaValidator.java
+                    │   │   |   ├── MinAgeValidator.java
+                    │   │   |   └── ValidPropertyFloorValidator.java
+                    │   │   ├── MinAge.java
+                    │   │   ├── ValidCarpetArea.java
+                    │   │   └── ValidPropertyFloor.java
+                    │   ├── exception
+                    │   │   ├── AuthenticationExceptionHandler.java
+                    │   │   ├── CustomAuthEntryPoint.java
+                    │   │   ├── GenericExceptionHandler.java
+                    │   │   └── TooManyRequestsException.java
+                    │   ├── hash
+                    │   │   └── PropertyHash.java
+                    │   ├── mail
+                    │   │   └── EmailNotifier.java
+                    │   ├── mappers
+                    │   │   ├── PropertyMappers.java
+                    │   │   └── UsersMapper.java
+                    │   └── response
+                    │       ├── CustomResponseCookieHandler.java
+                    │       └── ResponseEntityHandler.java
+                    │
+                    └── RentalManagementApplication.java
+```
 
 
