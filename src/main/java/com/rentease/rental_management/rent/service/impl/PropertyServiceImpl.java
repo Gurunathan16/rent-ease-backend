@@ -157,7 +157,7 @@ public class PropertyServiceImpl implements PropertyService {
     {
         Page<Property> properties = propertyRepository.findAllByUsers_Username(getUsername(), pageable);
 
-        if(properties == null)
+        if(properties == null || properties.isEmpty())
             return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "You haven't listed any property.", "Recovery", "Add your first property for free by clicking '+' button.");
 
         Page<PropertyProjection> propertiesProjection =
@@ -174,7 +174,7 @@ public class PropertyServiceImpl implements PropertyService {
     {
         Page<Property> properties = propertyRepository.findAll(pageable);
 
-        if(properties == null)
+        if(properties == null || properties.isEmpty())
             return ResponseEntityHandler.getResponseEntity(HttpStatus.NOT_FOUND, "No properties available.",
                     "Recovery", "Please try again after some time.");
 
@@ -203,14 +203,12 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public ResponseEntity<Map<String, Object>> searchByLocality(String locality, Pageable pageable)
     {
-        if(locality == null)
-            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "Locality cannot be null or blank.",
-                    "Recovery", "Try entering the locality you want to search.");
-
         Page<Property> propertiesByLocality = propertyRepository.searchByLocalityOrSubLocality(locality, pageable);
 
         if(propertiesByLocality == null || propertiesByLocality.isEmpty())
-            return ResponseEntityHandler.getResponseEntity(HttpStatus.NOT_FOUND, "No properties available in that " + "locality.", "Recovery", "Please try by expanding your search a bit.");
+            return ResponseEntityHandler.getResponseEntity(HttpStatus.NOT_FOUND,
+                    "No properties available in " + locality + " locality.", "Recovery", "Please try by expanding " +
+                            "your search a bit.");
 
         Page<PropertyProjection> propertiesProjection = propertiesByLocality.map(property ->
                 propertyMappers.propertyToPropertyProjection(property,
