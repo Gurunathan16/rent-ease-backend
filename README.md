@@ -2508,4 +2508,14 @@ src
 
 </details>
 
+## 🧩 Relationships
 
+- `Property` → embeds `Address` and `Price`
+
+- `Users` → `ManyToOne` with `Property`
+
+- `PreferredTenants` → `@ElementCollection` and `@CollectionTable`
+
+- `Amenities` → `ManyToMany` and `@JoinTable` with `Property`
+
+- `Likes` → `ManyToOne` to both `Users` and `Property`
