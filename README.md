@@ -332,6 +332,17 @@ Include the following properties as *body*:
 }
 ```
 
+#### Response(401 UNAUTHORIZED)
+*When user submits expired or tampered refresh token to get new access and refresh tokens.*
+```json
+{
+    "code": 200,
+    "status": "UNAUTHORIZED",
+    "message": "Authentication Failed.",
+    "Recovery": "Please login again."
+}
+```
+
 ### 8. **TRIGGER OTP** 
 
 **POST**	`/auth/sendOTP`
