@@ -51,7 +51,7 @@ public class SecurityConfig
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/auth/login", "/auth/signup", "/auth/sendOTP",
                                 "/auth/verifyEmailOTP", "/auth/refreshToken",
-                                "/app/properties", "/app/localitySearch/{locality}", "/app/filter", "/app/view",
+                                "/app/properties", "/app/localitySearch/{locality}", "/app/filter",
                                 "/app/likeCount").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
