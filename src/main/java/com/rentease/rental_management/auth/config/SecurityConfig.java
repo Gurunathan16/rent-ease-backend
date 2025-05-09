@@ -49,7 +49,7 @@ public class SecurityConfig
                         .configurationSource(getCorsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/auth/login", "/auth/signup", "/auth/changePassword", "/auth/sendOTP",
+                        .requestMatchers("/auth/login", "/auth/signup", "/auth/sendOTP",
                                 "/auth/verifyEmailOTP", "/auth/refreshToken",
                                 "/app/properties", "/app/localitySearch/{locality}", "/app/filter", "/app/view",
                                 "/app/likeCount").permitAll()
