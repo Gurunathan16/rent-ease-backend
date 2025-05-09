@@ -241,6 +241,8 @@ public class UsersServiceImpl implements UsersService
         if(usersRepository.existsByUsername(username))
             usersRepository.deleteByUsername(username);
 
+        redisService.removeUser(username);
+
         return ResponseEntityHandler.getResponseEntity(HttpStatus.OK,
                 "Profile Deleted SuccessFully.",
                 "Home", "/app/properties");

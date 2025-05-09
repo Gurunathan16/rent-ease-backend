@@ -69,6 +69,12 @@ public class RedisService
         redisTemplate.opsForList().remove(sessionKey(username), 1L, oldRefreshToken);
     }
 
+    public void removeUser(String username)
+    {
+
+        redisTemplate.delete(sessionKey(username));
+    }
+
     public void saveEmailOTP(String email, String otp)
     {
         redisTemplate.opsForValue().set(emailKey(email), otp, Duration.ofMinutes(5));
@@ -102,6 +108,5 @@ public class RedisService
     {
         return (String) redisTemplate.opsForValue().get(phoneNumberKey(phoneNumber));
     }
-
 
 }
