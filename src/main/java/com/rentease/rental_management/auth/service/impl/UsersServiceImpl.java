@@ -145,8 +145,7 @@ public class UsersServiceImpl implements UsersService
         String savedOTP = redisService.getEmailOTP(verifyEmailOTPRequest.email());
 
         if(savedOTP == null || !savedOTP.equals(verifyEmailOTPRequest.otp()))
-            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "Invalid or Expired OTP",
-                    "Recovery", "Try hitting /auth/sendOTP");
+            return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "Invalid or Expired OTP", "Recovery", "Try hitting /auth/sendOTP");
 
         Users users = usersRepository.findByEmail(verifyEmailOTPRequest.email());
 
