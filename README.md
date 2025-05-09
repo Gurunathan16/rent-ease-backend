@@ -1,6 +1,6 @@
 # 🏠 RentEase | Rental Management - Backend
 
-A Spring Boot-based backend for managing products, users, and warranties. Features include:
+RentEase is a secure and feature-rich backend system for managing rental properties. It enables users to register, list properties, filter listings, express interest, and communicate with potential buyers or tenants. The system is built with **Java, Spring Boot, MySQL, and Redis**, offering a strong focus on security, performance, and real-time interactions.
 
 ## 🔧 Tech Stack
 
@@ -31,19 +31,17 @@ A Spring Boot-based backend for managing products, users, and warranties. Featur
 - 📃 Paginated API responses
   
 ---
-## 🔗 Postman Collection
-
-
----
+## 🔗 [Postman Collection](https://www.postman.com/gurunat16/workspace/rentease-backend/collection/42371256-62dd98d8-b103-47f7-8a5b-18b852c0d33a?action=share&creator=42371256)
 
 # 📃 API DOCUMENTATION
-## 🔐 Authentication Endpoints 
+<details>
+<summary><strong> 🔐 Authentication Endpoints </strong></summary>
    
 ### 1. **LOGIN** 
 
 **POST** `/auth/login` 
 
-Authenticate a user and return access and refresh tokens as cookies. 
+Authenticate a user - returns access and refresh tokens as cookies.
 Include the following properties as *body*:
 
 - `username` - String - Required  
@@ -276,9 +274,9 @@ Returns the logged-in user's profile. Authentication required.
     "status": "OK",
     "message": "User profile fetch successful.",
     "Details": {
-      "firstName": "John",
+      "firstName": "Johnny",
       "lastName": "Doe",
-      "dateOfBirth": "1995-08-15",
+      "dateOfBirth": "1995-09-15",
       "gender": "Male",
       "username": "john_doe123",
       "email": "john.doe@example.com",
@@ -309,7 +307,7 @@ Deletes the logged-in user's account. Authentication required.
 
 **POST**	`/auth/refreshToken`	
 
-Refresh JWT token and return access/refresh tokens. 
+Refresh JWT token - returns access and refresh tokens. 
 Include the following properties as *body*:
 
 - `refreshToken` - String - Required  
@@ -331,6 +329,17 @@ Include the following properties as *body*:
         "iat": <Issued at time>,
         "exp": <Expiry time>
     }
+}
+```
+
+#### Response(401 UNAUTHORIZED)
+*When user submits expired or tampered refresh token to get new access and refresh tokens.*
+```json
+{
+    "code": 200,
+    "status": "UNAUTHORIZED",
+    "message": "Authentication Failed.",
+    "Recovery": "Please login again."
 }
 ```
 
@@ -394,7 +403,7 @@ Include the following properties as *body*:
     "code": 200,
     "status": "OK",
     "message": "Email verified successfully.",
-    "Details": "<firstName>"
+    "Details": "Johnny"
 }
 ```
 #### Response(400 BAD REQUEST)
@@ -427,19 +436,20 @@ Include the following properties as *body*:
 **Custom Age Validation**
 ![Age Validation](./screenshots/Validation%20of%20data.png)
 
-**Other Logical Validation**
-![Logical Validation](./screenshots/Custom%20Logical%20Validations.png)
+</details>
 
----
-
-## 🔐 Property Management Endpoints 
-   
+<details>
+<summary><strong> 🔐 Property Management Endpoints </strong></summary>
+  
 ### 1. **ADD PROPERTY** 
 
 **POST** `/app/add`
 
 Registers a new property with validated details provided. Authentication required.
 Include the following properties as *body*:
+
+<details>
+<summary>Click to view all fields</summary>
 
 - `title` - String - Required  
 - `description` - String - Required  
@@ -494,8 +504,35 @@ Include the following properties as *body*:
   - PossessionStatus values: `UNDER_CONSTRUCTION`, `READY_TO_MOVE`  
 - `parking` - Parking - Required  
   - Parking values: `CAR`, `BIKE`, `BOTH`, `NONE`
+</details>
+
+**AMENTIY TABLE**
+ ```
+| ID | Amenity                |
+| -- | ---------------------- |
+| 1  | Lift                   |
+| 2  | Internet Services      |
+| 3  | Air Conditioner        |
+| 4  | Club House             |
+| 5  | Intercom               |
+| 6  | Children Play Area     |
+| 7  | Fire Safety            |
+| 8  | Servant Room           |
+| 9  | Shopping Center        |
+| 10 | Gas Pipeline           |
+| 11 | Park                   |
+| 12 | Rain Water Harvesting  |
+| 13 | Sewage Treatment Plant |
+| 14 | House Keeping          |
+| 15 | Power Backup           |
+| 16 | Visitor Parking        |
+```
 
 #### Request Body
+
+<details>
+<summary>Click to expand</summary>
+  
 ```json
 {
   "title": "Spacious 2BHK near Palace",
@@ -548,6 +585,8 @@ Include the following properties as *body*:
 }
 
 ```
+</details>
+
 #### Response(200 OK)
 *Property created successfully.*
 ```json
@@ -588,6 +627,9 @@ Include the following properties as *body*:
 Updates an existing and own property's information. Authentication required.
 Include the following properties as *body*:
 
+<details>
+<summary>Click to view all fields</summary>
+  
 - `id` - Integer - Required  
 - `title` - String - Required  
 - `description` - String - Required  
@@ -642,8 +684,36 @@ Include the following properties as *body*:
   - PossessionStatus values: `UNDER_CONSTRUCTION`, `READY_TO_MOVE`  
 - `parking` - Parking - Required  
   - Parking values: `CAR`, `BIKE`, `BOTH`, `NONE`
+ 
+</details>
+ 
+**AMENTIY TABLE**
+```
+| ID | Amenity                |
+| -- | ---------------------- |
+| 1  | Lift                   |
+| 2  | Internet Services      |
+| 3  | Air Conditioner        |
+| 4  | Club House             |
+| 5  | Intercom               |
+| 6  | Children Play Area     |
+| 7  | Fire Safety            |
+| 8  | Servant Room           |
+| 9  | Shopping Center        |
+| 10 | Gas Pipeline           |
+| 11 | Park                   |
+| 12 | Rain Water Harvesting  |
+| 13 | Sewage Treatment Plant |
+| 14 | House Keeping          |
+| 15 | Power Backup           |
+| 16 | Visitor Parking        |
+```
 
 #### Request Body
+
+<details>
+<summary>Click to expand</summary>
+  
 ```json
 {
   "id": 100,
@@ -698,6 +768,8 @@ Include the following properties as *body*:
 
 ```
 
+</details>
+
 #### Response(200 OK)
 *Property updated successfully.*
 ```json
@@ -749,6 +821,10 @@ Include the following properties as *body*:
 
 #### Response(200 OK)
 *Property details fetched successfully.*
+
+<details>
+<summary>Click to expand</summary>
+  
 ```json
 {
     "code": 200,
@@ -814,6 +890,8 @@ Include the following properties as *body*:
 }
 ```
 
+</details>
+
 #### Response(400 BAD REQUEST)
 *Try fetching non-existing property.*
 ```json
@@ -842,14 +920,16 @@ Include the following properties as *query parameters*:
 - `sort` : No sorting applied
 
 #### Request URL
-```json
-{
-    GET /app/myProperties?page=0&size=6&sort=price.expectedPrice,desc&sort=bedrooms,asc
-}
+```http
+GET /app/myProperties?page=0&size=6&sort=price.expectedPrice,desc&sort=bedrooms,asc
 ```
 
 #### Response(200 OK)
 *Fetched all properties of the user with pageable support.*
+
+<details>
+<summary>Click to expand</summary>
+  
 ```json
 {
     "code": 200,
@@ -944,6 +1024,8 @@ Include the following properties as *query parameters*:
 }
 ```
 
+</details>
+
 #### Response(400 BAD REQUEST)
 *Occurs when the user not listed any property.*
 ```json
@@ -972,14 +1054,16 @@ Include the following properties as *query parameters*:
 - `sort` : No sorting applied
 
 #### Request URL
-```json
-{
-    GET /app/properties?page=0&size=6&sort=price.expectedPrice,desc&sort=bedrooms,asc
-}
+```http
+GET /app/properties?page=0&size=6&sort=price.expectedPrice,desc&sort=bedrooms,asc
 ```
 
 #### Response(200 OK)
 *Fetched all properties available on the platform with pageable support.*
+
+<details>
+<summary>Click to expand</summary>
+  
 ```json
 {
     "code": 200,
@@ -1369,6 +1453,8 @@ Include the following properties as *query parameters*:
 }
 ```
 
+</details>
+
 #### Response(404 NOT FOUND)
 *Occurs when there are no properties available in the platform.*
 ```json
@@ -1428,14 +1514,16 @@ Include the following properties as *query parameter*:
 - `locality` - String - Required 
 
 #### Request URL
-```json
-{
-    GET /app/localitySearch/Poonamallee High Road?page=0&size=6&sort=price.expectedPrice,asc&sort=bedrooms,asc
-}
+```http
+GET /app/localitySearch/Poonamallee High Road?page=0&size=6&sort=price.expectedPrice,asc&sort=bedrooms,asc
 ```
 
 #### Response(200 OK)
 *Fetched all properties available on the given locality with pageable support.*
+
+<details>
+<summary>Click to expand</summary>
+  
 ```json
 {
     "code": 200,
@@ -1833,6 +1921,8 @@ Include the following properties as *query parameter*:
 }
 ```
 
+</details>
+
 #### Response(400 NOT FOUND)
 *Occurs when there are no properties available in the given locality*
 ```json
@@ -1848,17 +1938,297 @@ Include the following properties as *query parameter*:
 
 **GET** `/app/filter`
 
-Applies multiple dynamic filters (e.g. type, price, BHK, area, amenities) to search properties with pagination.
-Include the following properties:
+Applies multiple dynamic filters (e.g. property type, price, BHK, area, amenities) to search properties with pagination.
+Include the following properties as *query parameter*:
 
-- `username` - String - Required  
-- `password` - String - Required  
+<details>
+<summary>Click to view all fields</summary>
 
-#### Request Body
+- `propertyType`       - Set<String>  - Optional  - Property types (`FLAT_OR_APARTMENT`, `RESIDENTIAL_HOUSE`, `VILLA`, `STUDIO_APARTMENT`, `OFFICE_SPACE`, `SHOP`, `SHOWROOM`, `WAREHOUSE_OR_GODOWN`, `INDUSTRY`, `AGRICULTURAL`)
+- `bhkType`            - Set<Integer> - Optional  - Number of bedrooms (1, 2, 3, etc.,)
+- `preferredTenants`   - Set<String>  - Optional  - Preferred tenant types (`ANYONE`, `FAMILY`, `BACHELOR_MALE`, `BACHELOR_FEMALE`, `COMPANY`)
+- `furnishedStatus`    - Set<String>  - Optional  - Furnishing status `FURNISHED`, `UNFURNISHED`, `SEMI_FURNISHED`)
+- `parking`            - Set<String>  - Optional  - Parking options (`CAR`, `BIKE`, `BOTH`, `NONE`)
+- `amenities`          - Set<Integer> - Optional  - Amenity IDs
+- `minPrice`           - Integer      - Optional  - Minimum price
+- `maxPrice`           - Integer      - Optional  - Maximum price
+- `availableWithin`    - Integer      - Optional  - Number of days within which the property is available
+- `listingCategory`    - String       - Optional  - Listing category (`RENT_OR_LEASE` or `SALE` or `PG_OR_HOSTEL`  )
+- `propertyAge`        - Integer      - Optional  - Property age in years
+- `bathrooms`          - Integer      - Optional  - Number of bathrooms
+- `minArea`            - Integer      - Optional  - Minimum built-up area (in sq.ft)
+- `maxArea`            - Integer      - Optional  - Maximum built-up area (in sq.ft)
+
+</details>
+
+**Pageable**
+- `page` - Integer - Optional  
+- `size` - Integer - Optional
+- `sort` - String  - Optional (can be used multiple times for multi-field sorting)
+
+*Default Values(If not provided)*
+- `page` : 0  
+- `size` : 20
+- `sort` : No sorting applied
+
+**AMENTIY TABLE**
+```
+| ID | Amenity                |
+| -- | ---------------------- |
+| 1  | Lift                   |
+| 2  | Internet Services      |
+| 3  | Air Conditioner        |
+| 4  | Club House             |
+| 5  | Intercom               |
+| 6  | Children Play Area     |
+| 7  | Fire Safety            |
+| 8  | Servant Room           |
+| 9  | Shopping Center        |
+| 10 | Gas Pipeline           |
+| 11 | Park                   |
+| 12 | Rain Water Harvesting  |
+| 13 | Sewage Treatment Plant |
+| 14 | House Keeping          |
+| 15 | Power Backup           |
+| 16 | Visitor Parking        |
+```
+
+#### Request URL
+```http
+GET /app//filter?amenities=1&amenities=12&amenities=5&minArea=400&maxArea=800&page=0&size=12&sort=price.expectedPrice,asc
+```
+
+#### Response(200 OK)
+*List of properties that falls under that filter.*
+
+<details>
+<summary>Click to expand</summary>
+  
 ```json
 {
-    "username": "john_doe123",
-    "password": "Abc@1234"
+    "code": 200,
+    "status": "OK",
+    "message": "Filter applied successfully.",
+    "Details": {
+        "content": [
+            {
+                "id": 41,
+                "title": "3BHK House",
+                "description": "Spacious and well-ventilated property located near Ambattur with easy access to all essentials.",
+                "address": {
+                    "fullAddress": "No. 973, Garden Street",
+                    "subLocality": "Poonamallee High Road",
+                    "locality": "Ambattur",
+                    "city": "Chennai",
+                    "state": "Tamilnadu",
+                    "pinCode": 600038,
+                    "latitude": 13.110826,
+                    "longitude": 80.185496
+                },
+                "price": {
+                    "expectedPrice": 53963,
+                    "isPriceNegotiable": false,
+                    "securityDeposit": 269405,
+                    "callForPrice": true,
+                    "bookingAmount": 94641,
+                    "maintenanceFee": 14588,
+                    "maintenanceFeeCycle": 3
+                },
+                "bedrooms": 4,
+                "bathrooms": 1,
+                "isAttachedBathroom": false,
+                "balconies": 1,
+                "isAttachedBalcony": false,
+                "propertyFloor": 3,
+                "totalFloor": 3,
+                "facing": "West",
+                "isMainRoadFacing": false,
+                "buildUpArea": 706,
+                "carpetArea": 606,
+                "propertyAge": 28,
+                "availableFrom": "2025-06-07",
+                "noticePeriodInMonths": 2,
+                "gatedSecurity": true,
+                "gym": false,
+                "onlyVeg": false,
+                "amenities": [
+                    "Visitor Parking",
+                    "Internet Services",
+                    "Rain Water Harvesting",
+                    "Gas Pipeline",
+                    "Sewage Treatment Plant",
+                    "Club House",
+                    "Lift"
+                ],
+                "preferredTenants": [
+                    "ANYONE"
+                ],
+                "propertyCategory": "RESIDENTIAL",
+                "waterSupply": "BOTH",
+                "listingCategory": "PG_OR_HOSTEL",
+                "propertyType": "WAREHOUSE_OR_GODOWN",
+                "furnishedStatus": "UNFURNISHED",
+                "possessionStatus": "READY_TO_MOVE",
+                "parking": "CAR"
+            },
+            {
+                "id": 50,
+                "title": "3BHK Apartment",
+                "description": "Beautifully constructed property located near Velachery with easy access to all essentials.",
+                "address": {
+                    "fullAddress": "No. 877, Lake View Street",
+                    "subLocality": "Mount Road",
+                    "locality": "Ambattur",
+                    "city": "Chennai",
+                    "state": "Tamilnadu",
+                    "pinCode": 600078,
+                    "latitude": 13.091543,
+                    "longitude": 80.125905
+                },
+                "price": {
+                    "expectedPrice": 102298,
+                    "isPriceNegotiable": false,
+                    "securityDeposit": 954271,
+                    "callForPrice": true,
+                    "bookingAmount": 31115,
+                    "maintenanceFee": 2786,
+                    "maintenanceFeeCycle": 3
+                },
+                "bedrooms": 3,
+                "bathrooms": 1,
+                "isAttachedBathroom": false,
+                "balconies": 1,
+                "isAttachedBalcony": true,
+                "propertyFloor": 4,
+                "totalFloor": 12,
+                "facing": "South",
+                "isMainRoadFacing": true,
+                "buildUpArea": 780,
+                "carpetArea": 511,
+                "propertyAge": 15,
+                "availableFrom": "2025-06-05",
+                "noticePeriodInMonths": 1,
+                "gatedSecurity": false,
+                "gym": false,
+                "onlyVeg": true,
+                "amenities": [
+                    "Air Conditioner",
+                    "Visitor Parking",
+                    "Children Play Area",
+                    "Power Backup",
+                    "Intercom"
+                ],
+                "preferredTenants": [
+                    "COMPANY"
+                ],
+                "propertyCategory": "RESIDENTIAL",
+                "waterSupply": "BOTH",
+                "listingCategory": "RENT_OR_LEASE",
+                "propertyType": "STUDIO_APARTMENT",
+                "furnishedStatus": "FURNISHED",
+                "possessionStatus": "UNDER_CONSTRUCTION",
+                "parking": "NONE"
+            },
+            {
+                "id": 45,
+                "title": "3BHK Apartment",
+                "description": "Beautifully constructed property located near Mogappair with easy access to all essentials.",
+                "address": {
+                    "fullAddress": "No. 373, Lake View Street",
+                    "subLocality": "Mount Road",
+                    "locality": "Thiruvanmiyur",
+                    "city": "Chennai",
+                    "state": "Tamilnadu",
+                    "pinCode": 600076,
+                    "latitude": 12.97021,
+                    "longitude": 80.285255
+                },
+                "price": {
+                    "expectedPrice": 142254,
+                    "isPriceNegotiable": true,
+                    "securityDeposit": 642733,
+                    "callForPrice": true,
+                    "bookingAmount": 95881,
+                    "maintenanceFee": 2186,
+                    "maintenanceFeeCycle": 3
+                },
+                "bedrooms": 3,
+                "bathrooms": 3,
+                "isAttachedBathroom": false,
+                "balconies": 0,
+                "isAttachedBalcony": true,
+                "propertyFloor": 5,
+                "totalFloor": 11,
+                "facing": "West",
+                "isMainRoadFacing": false,
+                "buildUpArea": 517,
+                "carpetArea": 324,
+                "propertyAge": 30,
+                "availableFrom": "2025-05-15",
+                "noticePeriodInMonths": 1,
+                "gatedSecurity": false,
+                "gym": false,
+                "onlyVeg": false,
+                "amenities": [
+                    "Fire Safety",
+                    "House Keeping",
+                    "Visitor Parking",
+                    "Internet Services",
+                    "Power Backup",
+                    "Intercom"
+                ],
+                "preferredTenants": [
+                    "BACHELOR_MALE",
+                    "BACHELOR_FEMALE"
+                ],
+                "propertyCategory": "COMMERCIAL",
+                "waterSupply": "CORPORATION",
+                "listingCategory": "RENT_OR_LEASE",
+                "propertyType": "SHOWROOM",
+                "furnishedStatus": "SEMI_FURNISHED",
+                "possessionStatus": "UNDER_CONSTRUCTION",
+                "parking": "CAR"
+            }
+        ],
+        "pageable": {
+            "pageNumber": 0,
+            "pageSize": 12,
+            "sort": {
+                "empty": false,
+                "sorted": true,
+                "unsorted": false
+            },
+            "offset": 0,
+            "paged": true,
+            "unpaged": false
+        },
+        "totalElements": 3,
+        "totalPages": 1,
+        "last": true,
+        "size": 12,
+        "number": 0,
+        "sort": {
+            "empty": false,
+            "sorted": true,
+            "unsorted": false
+        },
+        "numberOfElements": 3,
+        "first": true,
+        "empty": false
+    }
+}
+```
+
+</details>
+
+#### Response(404 NOT FOUND)
+*Narrow filter fetching no property.*
+```json
+{
+    "code": 404,
+    "status": "Not Found",
+    "message": "No properties available with that filters.",
+    "Recovery": "Please try by adjusting your filter a bit."
 }
 ```
 
@@ -1990,7 +2360,7 @@ Include the following properties as *body*:
 }
 ```
 
-#### Response(400 BAD REQUEST)
+#### Response(200 OK)
 *Live like count of a property fetched successfully.*
 ```json
 {
@@ -2012,10 +2382,44 @@ Include the following properties as *body*:
 }
 ```
 
+## Common Validation Error Response
+
+```json
+{
+    "code": <HttpStatus Code>,
+    "status": <HttpStatus Status>,
+    "message": "Validation check failed.",
+    "Validation Errors": [
+        <Error Messages>
+    ]
+}
+```
+
+**Logical Validation**
+![Logical Validation](./screenshots/Custom%20Logical%20Validations.png)
+
+</details>
 
 ---
 
+
+## 🧩 Relationships
+
+- `Property` → embeds `Address` and `Price`
+
+- `Users` → `ManyToOne` with `Property`
+
+- `PreferredTenants` → `@ElementCollection` and `@CollectionTable`
+
+- `Amenities` → `ManyToMany` and `@JoinTable` with `Property`
+
+- `Likes` → `ManyToOne` to both `Users` and `Property`
+
+
 ## 📁 Project Structure
+
+<details>
+<summary>Click to view complete tree</summary>
 
 ```
 src
@@ -2116,4 +2520,4 @@ src
                     └── RentalManagementApplication.java
 ```
 
-
+</details>
