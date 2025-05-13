@@ -38,7 +38,7 @@ public interface PropertyMappers
     @Mapping(target = "amenities", source = "propertyAmenities")
     @Mapping(target = "address", source = "addressDtoToEntity")
     @Mapping(target = "price", source = "priceDtoToEntity")
-    Property propertyUpdateToProperty(PropertyUpdate propertyUpdate, @MappingTarget  Property property,
+    void propertyUpdateToProperty(PropertyUpdate propertyUpdate, @MappingTarget  Property property,
                                       Set<Amenity> propertyAmenities, Address addressDtoToEntity,
                                       Price priceDtoToEntity);
 }

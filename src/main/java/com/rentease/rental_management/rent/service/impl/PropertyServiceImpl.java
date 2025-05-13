@@ -14,7 +14,6 @@ import com.rentease.rental_management.util.mail.EmailNotifier;
 import com.rentease.rental_management.util.mappers.PropertyMappers;
 import com.rentease.rental_management.util.mappers.UsersMapper;
 import com.rentease.rental_management.util.response.ResponseEntityHandler;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -40,7 +39,7 @@ public class PropertyServiceImpl implements PropertyService {
     private final UsersRepository usersRepository;
     private final EmailNotifier emailNotifier;
 
-    public PropertyServiceImpl(PropertyRepository propertyRepository, AmenityRepository amenityRepository, PropertyMappers propertyMappers, UsersRepository usersRepository, EntityManager entityManager, EmailNotifier emailNotifier)
+    public PropertyServiceImpl(PropertyRepository propertyRepository, AmenityRepository amenityRepository, PropertyMappers propertyMappers, UsersRepository usersRepository, EmailNotifier emailNotifier)
     {
         this.propertyRepository = propertyRepository;
         this.amenityRepository = amenityRepository;
@@ -114,7 +113,7 @@ public class PropertyServiceImpl implements PropertyService {
             }
         }
 
-        Property propertyUpdated = propertyMappers.propertyUpdateToProperty(propertyUpdate, property,
+        propertyMappers.propertyUpdateToProperty(propertyUpdate, property,
                 propertyAmenities, propertyMappers.addressDtoToAddress(propertyUpdate.getAddress()),
                 propertyMappers.priceDtoToPrice(propertyUpdate.getPrice()));
 
@@ -127,9 +126,9 @@ public class PropertyServiceImpl implements PropertyService {
 
         String uniqueHash = PropertyHash.uniquePropertyHash(propertyHash);
 
-        propertyUpdated.setUniqueHash(uniqueHash);
+        property.setUniqueHash(uniqueHash);
 
-        propertyRepository.save(propertyUpdated);
+        propertyRepository.save(property);
 
         return ResponseEntityHandler.getResponseEntity(HttpStatus.OK, "Property updated successfully.", "Details",
                 property.getTitle());
@@ -174,7 +173,7 @@ public class PropertyServiceImpl implements PropertyService {
     {
         Page<Property> properties = propertyRepository.findAll(pageable);
 
-        if(properties == null || properties.isEmpty())
+        if(properties.isEmpty())
             return ResponseEntityHandler.getResponseEntity(HttpStatus.NOT_FOUND, "No properties available.",
                     "Recovery", "Please try again after some time.");
 
@@ -321,7 +320,7 @@ public class PropertyServiceImpl implements PropertyService {
 
         Page<Property> properties = propertyRepository.findAll(specification, pageable);
 
-        if(properties == null || properties.isEmpty())
+        if(properties.isEmpty())
             return ResponseEntityHandler.getResponseEntity(HttpStatus.NOT_FOUND, "No properties available with that " +
                     "filters.", "Recovery", "Please try by adjusting your filter a bit.");
 
