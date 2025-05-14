@@ -2,6 +2,7 @@ package com.rentease.rental_management.util.exception;
 
 import com.rentease.rental_management.util.response.ResponseEntityHandler;
 import org.springframework.data.mapping.PropertyReferenceException;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -51,5 +52,10 @@ public class GenericExceptionHandler {
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<Map<String, Object>> handleDuplicateEntry(SQLIntegrityConstraintViolationException ex) {
         return ResponseEntityHandler.getResponseEntity(HttpStatus.BAD_REQUEST, "Duplicate Entry found.", "Recovery", "Try adding different entry. Not the same one 🙃.");
+    }
+
+    @ExceptionHandler(RedisConnectionFailureException.class)
+    public ResponseEntity<Map<String, Object>> handleRedisFailure(RedisConnectionFailureException ex) {
+        return ResponseEntityHandler.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, "Redis Server down", "Recovery", "Try starting redis before trying to login.");
     }
 }

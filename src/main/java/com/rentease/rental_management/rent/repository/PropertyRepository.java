@@ -15,8 +15,7 @@ public interface PropertyRepository extends JpaRepository<Property, Integer>, Jp
 
     Integer deleteByIdAndUsers_Username(Integer id, String username);
 
-    @Query("SELECT p from Property AS p WHERE LOWER(p.address.locality) LIKE LOWER(CONCAT('%', :locality, '%')) OR " +
-            "LOWER(p.address.subLocality) LIKE LOWER(CONCAT('%', :locality, '%'))")
+    @Query("SELECT p from Property AS p WHERE LOWER(p.address.locality) LIKE LOWER(CONCAT('%', :locality, '%')) OR " + "LOWER(p.address.subLocality) LIKE LOWER(CONCAT('%', :locality, '%'))")
     Page<Property> searchByLocalityOrSubLocality(String locality, Pageable pageable);
 
     Property findByIdAndUsers_Username(Integer id, String username);
